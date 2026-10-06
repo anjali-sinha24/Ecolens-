@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EcoLens AI — Carbon Footprint Calculator</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="index.html" class="brand-logo">
+        <span class="logo-icon" style="font-size:28px;">🌿</span>
+        <span class="brand-name">EcoLens </span>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="calculator.html" class="nav-link active">Calculate</a>
+      </nav>
+      <a href="calculator.html" class="btn btn-primary nav-cta">Calculate My Footprint</a>
+    </div>
+  </header>
+
+  <main class="calculator-page">
+    <div class="calc-container">
+      
+      <!-- Calculator Header -->
+      <div class="calc-header text-center">
+        <span class="badge">Carbon Estimator</span>
+        <h1>Understand Your Carbon Footprint</h1>
+        <p>Enter your typical monthly and yearly lifestyle metrics below to generate your personal carbon footprint estimate.</p>
+        
+        <!-- Interactive Progress Indicator -->
+        <div class="progress-indicator">
+          <div class="progress-step active" id="p-step-1">
+            <span class="step-circle">1</span>
+            <span class="step-label">Transport</span>
+          </div>
+          <div class="progress-line"></div>
+          <div class="progress-step" id="p-step-2">
+            <span class="step-circle">2</span>
+            <span class="step-label">Electricity</span>
+          </div>
+          <div class="progress-line"></div>
+          <div class="progress-step" id="p-step-3">
+            <span class="step-circle">3</span>
+            <span class="step-label">Household</span>
+          </div>
+          <div class="progress-line"></div>
+          <div class="progress-step" id="p-step-4">
+            <span class="step-circle">4</span>
+            <span class="step-label">Water</span>
+          </div>
+          <div class="progress-line"></div>
+          <div class="progress-step" id="p-step-5">
+            <span class="step-circle">5</span>
+            <span class="step-label">Food</span>
+          </div>
+          <div class="progress-line"></div>
+          <div class="progress-step" id="p-step-6">
+            <span class="step-circle">6</span>
+            <span class="step-label">Flights</span>
+          </div>
+          <div class="progress-line"></div>
+          <div class="progress-step" id="p-step-7">
+            <span class="step-circle">7</span>
+            <span class="step-label">Results</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form Card -->
+      <div class="card form-card">
+        <form id="footprint-form" onsubmit="return false;">
+          
+          <!-- Section 1: Transportation -->
+          <div class="form-section" id="sec-transportation">
+            <div class="section-title">
+              <span>1. Transportation</span>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="vehicle-type">What vehicle do you mainly use?</label>
+                <select id="vehicle-type" class="form-control" required>
+                  <option value="" disabled selected>Select vehicle</option>
+                  <option value="car">Car (Petrol/Diesel)</option>
+                  <option value="electric">Electric Vehicle (EV)</option>
+                  <option value="bus">Public Bus</option>
+                  <option value="train">Train / Metro</option>
+                  <option value="auto">Auto / Rickshaw</option>
+                  <option value="bike">Motorcycle / Scooter</option>
+                  <option value="walk">Walk / Cycle</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="transport-distance">How many kilometres do you travel per month?</label>
+                <div class="input-with-unit">
+                  <input type="number" id="transport-distance" class="form-control" min="0" placeholder="e.g. 450" required />
+                  <span class="unit-tag">km/month</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Electricity -->
+          <div class="form-section" id="sec-electricity">
+            <div class="section-title">
+              <span>2. Electricity</span>
+            </div>
+
+            <div class="form-group">
+              <label for="electricity-bill">What is your average monthly electricity bill?</label>
+              <div class="input-with-unit">
+                <input type="number" id="electricity-bill" class="form-control" min="0" placeholder="e.g. 1500" required />
+                <span class="unit-tag">₹ / month</span>
+              </div>
+              <p style="font-size:0.8rem; margin-top:0.5rem;">
+                You do not need to know your kWh. EcoLens will estimate it from your bill.
+                <strong>Example:</strong> ₹1,000–₹2,000/month is roughly <strong>125–250 kWh/month</strong>.
+                Actual kWh can vary because electricity tariffs and fixed charges differ by location.
+              </p>
+            </div>
+          </div>
+
+          <!-- Section 3: Household -->
+          <div class="form-section" id="sec-household">
+            <div class="section-title">
+              <span>3. Household & Waste</span>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="cooking-fuel">What cooking fuel does your household mainly use?</label>
+                <select id="cooking-fuel" class="form-control" required>
+                  <option value="" disabled selected>Select cooking fuel</option>
+                  <option value="lpg">LPG</option>
+                  <option value="png">Piped Natural Gas (PNG)</option>
+                  <option value="electric">Electric / Induction</option>
+                  <option value="biogas">Biogas</option>
+                  <option value="firewood">Firewood</option>
+                  <option value="charcoal">Charcoal</option>
+                  <option value="kerosene">Kerosene</option>
+                  <option value="other">Other / Not Listed</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="cooking-frequency">How often do you use or refill this cooking fuel?</label>
+                <select id="cooking-frequency" class="form-control" required>
+                  <option value="" disabled selected>Select fuel first</option>
+                </select>
+                <p id="cooking-frequency-help" style="font-size:0.8rem; margin-top:0.5rem;">
+                  Choose the option closest to your normal household use. No kg calculation is needed.
+                </p>
+              </div>
+
+              <div class="form-group">
+                <label for="waste-kg">Approximate household waste generated per week</label>
+                <div class="input-with-unit">
+                  <input type="number" id="waste-kg" class="form-control" min="0" step="0.1" value="0" placeholder="e.g. 5" required />
+                  <span class="unit-tag">kg/week</span>
+                </div>
+              </div>
+            </div>
+
+            <p style="font-size:0.8rem; margin-top:0.75rem;">
+              Electric cooking is already included in your electricity bill, so it is not counted twice.
+            </p>
+          </div>
+
+          <!-- Section 4: Water -->
+          <div class="form-section" id="sec-water">
+            <div class="section-title">
+              <span>4. Water</span>
+            </div>
+
+            <div class="form-group">
+              <label for="water-use-range">Which option best describes your household's daily water use?</label>
+              <select id="water-use-range" class="form-control" required>
+                <option value="" disabled selected>Select approximate use</option>
+                <option value="low">Up to 300 litres/day — lower use</option>
+                <option value="normal">301–600 litres/day — typical use</option>
+                <option value="high">601–900 litres/day — high use</option>
+                <option value="excessive">More than 900 litres/day — very high use</option>
+              </select>
+              <p style="font-size:0.8rem; margin-top:0.5rem;">
+                You do not need to measure litres. Choose the closest range. For a typical 3–5 person home,
+                300–600 litres/day is a useful reference range.
+              </p>
+            </div>
+          </div>
+
+          <!-- Section 4: Food -->
+          <div class="form-section" id="sec-food">
+            <div class="section-title">
+              <span>5. Food & Nutrition</span>
+            </div>
+
+            <div class="form-group">
+              <label>What is your usual diet?</label>
+              <div class="radio-cards-group">
+                <label class="radio-card">
+                  <input type="radio" name="diet" value="vegetarian" required />
+                  <div class="radio-card-content">
+                    <span class="radio-title">Vegetarian</span>
+                    <span class="radio-desc">Plant-based diet with dairy, no meat or seafood.</span>
+                  </div>
+                </label>
+
+                <label class="radio-card">
+                  <input type="radio" name="diet" value="mixed" />
+                  <div class="radio-card-content">
+                    <span class="radio-title">Mixed</span>
+                    <span class="radio-desc">Balanced diet with occasional meat or poultry.</span>
+                  </div>
+                </label>
+
+                <label class="radio-card">
+                  <input type="radio" name="diet" value="non-vegetarian" />
+                  <div class="radio-card-content">
+                    <span class="radio-title">Non-Vegetarian</span>
+                    <span class="radio-desc">Regular consumption of red meat, poultry, and seafood.</span>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 5: Flights -->
+          <div class="form-section" id="sec-flights">
+            <div class="section-title">
+              <span>6. Air Travel</span>
+            </div>
+
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="flight-count">How many flights do you take per year?</label>
+                <div class="input-with-unit">
+                  <input type="number" id="flight-count" class="form-control" min="0" value="0" required />
+                  <span class="unit-tag">flights/year</span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="flight-duration">What is the average flight duration?</label>
+                <select id="flight-duration" class="form-control">
+                  <option value="none" selected>No flights (0)</option>
+                  <option value="short">Short (&lt; 3 hours)</option>
+                  <option value="medium">Medium (3 – 6 hours)</option>
+                  <option value="long">Long (&gt; 6 hours)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Error Alert -->
+          <div id="form-error" class="alert alert-error" style="display: none;">
+            Please fill in all required fields accurately before calculating.
+          </div>
+
+          <!-- Action Button -->
+          <div class="form-actions text-center">
+            <button type="button" id="btn-calculate" class="btn btn-primary btn-large btn-block">
+              Calculate My Footprint
+              <span style="font-size:18px;">→</span>
+            </button>
+          </div>
+        </form>
+      </div>
+      <div id="results-wrapper" class="results-wrapper" style="display: none;">
+        
+        <!-- Results Main Card -->
+        <div class="card results-card fade-in-up">
+          <div class="results-header">
+            <span class="badge badge-success">Calculation Complete</span>
+            <h2>Your Estimated Carbon Footprint</h2>
+            
+            <div class="main-metric-display">
+              <span id="res-total-value" class="metric-number">0.0</span>
+              <span class="metric-unit-large">kg CO₂e / month</span>
+            </div>
+            <p class="metric-subtext">Equivalent to <strong id="res-annual-value">0.0</strong> metric tons CO₂e per year</p>
+          </div>
+
+          <!-- Biggest Contributor Box -->
+          <div class="contributor-box">
+            <div class="contributor-icon">
+              <span style="font-size:24px;">⚠</span>
+            </div>
+            <div class="contributor-text">
+              <span class="contributor-title">Your biggest contributor is <strong id="res-biggest-name">—</strong></span>
+              <p id="res-biggest-desc">Calculating primary driver...</p>
+            </div>
+            <div class="contributor-badge" id="res-biggest-percent">0%</div>
+          </div>
+
+          <!-- Breakdown Chart -->
+          <div class="breakdown-section">
+            <h3>Impact Breakdown by Activity</h3>
+            <div class="breakdown-list">
+              
+              <div class="breakdown-item">
+                <div class="item-meta">
+                  <span class="item-name">Transportation</span>
+                  <span class="item-values"><span id="val-transport">0</span> kg (<span id="pct-transportation">0%</span>)</span>
+                </div>
+                <div class="item-bar-track">
+                  <div class="item-bar-fill fill-transport" id="bar-transport" style="width: 0%;"></div>
+                </div>
+              </div>
+
+              <div class="breakdown-item">
+                <div class="item-meta">
+                  <span class="item-name">Electricity</span>
+                  <span class="item-values"><span id="val-electricity">0</span> kg (<span id="pct-electricity">0%</span>)</span>
+                </div>
+                <div class="item-bar-track">
+                  <div class="item-bar-fill fill-electricity" id="bar-electricity" style="width: 0%;"></div>
+                </div>
+              </div>
+
+              <div class="breakdown-item">
+                <div class="item-meta">
+                  <span class="item-name">Household & Waste</span>
+                  <span class="item-values"><span id="val-household">0</span> kg (<span id="pct-household">0%</span>)</span>
+                </div>
+                <div class="item-bar-track">
+                  <div class="item-bar-fill" id="bar-household" style="width: 0%; background-color: var(--color-cyprus);"></div>
+                </div>
+              </div>
+
+              <div class="breakdown-item">
+                <div class="item-meta">
+                  <span class="item-name">Water</span>
+                  <span class="item-values"><span id="val-water">0</span> kg (<span id="pct-water">0%</span>)</span>
+                </div>
+                <div class="item-bar-track">
+                  <div class="item-bar-fill fill-water" id="bar-water" style="width: 0%; background-color: var(--color-meadow);"></div>
+                </div>
+              </div>
+
+              <div class="breakdown-item">
+                <div class="item-meta">
+                  <span class="item-name">Food & Diet</span>
+                  <span class="item-values"><span id="val-food">0</span> kg (<span id="pct-food">0%</span>)</span>
+                </div>
+                <div class="item-bar-track">
+                  <div class="item-bar-fill fill-food" id="bar-food" style="width: 0%;"></div>
+                </div>
+              </div>
+
+              <div class="breakdown-item">
+                <div class="item-meta">
+                  <span class="item-name">Air Travel</span>
+                  <span class="item-values"><span id="val-flights">0</span> kg (<span id="pct-flights">0%</span>)</span>
+                </div>
+                <div class="item-bar-track">
+                  <div class="item-bar-fill fill-flights" id="bar-flights" style="width: 0%;"></div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Dynamic Result Insight -->
+          <div class="insight-box" id="res-insight">
+            <!-- Dynamic text inserted by JavaScript -->
+          </div>
+        </div>
+
+        <!-- Smart Sustainability Coach -->
+<div class="card coach-card fade-in-up">
+  <div class="coach-header">
+    <div class="coach-title-area">
+      <span style="font-size:22px;">🌱</span>
+      <h3>Smart Sustainability Coach</h3>
+    </div>
+    <span class="preview-tag">Personalized recommendations</span>
+  </div>
+
+  <div class="coach-intro">
+    <p>
+      Based on your carbon footprint, EcoLens identifies your biggest
+      contributor and gives you simple actions to reduce your impact.
+    </p>
+  </div>
+
+  <div class="coach-recommendations" id="coach-recs-list">
+    <!-- Personalized recommendations are generated by calculator.js -->
+  </div>
+</div>
+        <!-- What-If Simulator -->
+        <div class="card simulator-card fade-in-up">
+          <div class="sim-header">
+            <span style="font-size:22px;">ⓘ</span>
+            <h3>What-If Simulator</h3>
+          </div>
+          <p>Test transport and electricity changes in real-time to estimate potential monthly carbon reductions.</p>
+
+          <div class="sim-body">
+            <div class="sim-control-group">
+              <label for="sim-transport-slider">
+                Adjust Monthly Travel Distance: <strong id="sim-distance-val">0</strong> km
+              </label>
+              <input type="range" id="sim-transport-slider" min="0" max="2000" step="10" class="sim-slider" />
+            </div>
+
+            <div class="sim-control-group">
+              <label for="sim-electricity-slider">
+                Adjust Monthly Electricity Use: <strong id="sim-electricity-val">0</strong> kWh
+              </label>
+              <input type="range" id="sim-electricity-slider" min="0" max="1000" step="10" class="sim-slider" />
+            </div>
+
+            <div class="sim-results-grid">
+              <div class="sim-metric-card">
+                <span class="sim-label">Current Estimate</span>
+                <span class="sim-value" id="sim-current-val">0.0 kg</span>
+              </div>
+              <div class="sim-metric-card">
+                <span class="sim-label">Simulated Estimate</span>
+                <span class="sim-value" id="sim-new-val">0.0 kg</span>
+              </div>
+              <div class="sim-metric-card sim-highlight">
+                <span class="sim-label">Potential Difference</span>
+                <span class="sim-value" id="sim-diff-val">0.0 kg</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Local History Tracker -->
+        <div class="card history-card fade-in-up">
+          <div class="history-header">
+            <h3>Calculation History & Local Progress</h3>
+            <button id="btn-clear-history" class="btn btn-outline btn-small">Clear History</button>
+          </div>
+          <p class="history-subtitle">Stored securely in your browser LocalStorage.</p>
+
+          <div id="history-container">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Reset & Recalculate -->
+        <div class="reset-area text-center" style="margin-top: 2rem;">
+          <button id="btn-reset-calc" class="btn btn-outline btn-large">
+            <span style="font-size:18px;">↻</span>
+            Start New Calculation
+          </button>
+        </div>
+
+      </div> <!-- End Results Wrapper -->
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <span class="brand-name">EcoLens</span>
+        <p>Personal carbon intelligence for everyday sustainability decisions.</p>
+      </div>
+      <div class="footer-nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="calculator.html">Calculate</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="calculator.js"></script>
+</body>
+</html>
