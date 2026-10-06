@@ -473,7 +473,7 @@ h4 { font-size: 1.1rem;}
   padding: 12rem 1.5rem;
   background-image:
 linear-gradient(rgba(12, 40, 26, 0.6), rgba(19, 32, 1, 0.6)),
-   url("images/hero.png");
+   url("hero.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
